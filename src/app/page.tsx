@@ -9,12 +9,6 @@ import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Sparkles, Heart, Camera, Users, Star, Check, Mail, Shield, Settings, ArrowLeft, Menu, Home, Search, Plus, User, Bell, Shirt, Palette, TrendingUp, Calendar, MessageCircle, ShoppingBag, BarChart3, Database, UserCheck, Cog, X, Upload, Eye, Trash2, Bug, Lightbulb, Send, Edit, Lock, HelpCircle, LogOut, ChevronLeft, ChevronRight, CreditCard, Crown, Loader2, Image, Wand2, Scissors, Zap, Target, Layers, Brush } from "lucide-react"
 import PurchaseButtons from "@/components/PurchaseButtons"
-import PurchaseButtons from "@/components/PurchaseButtons"
-import PurchaseButtons from "@/components/PurchaseButtons"
-import PurchaseButtons from "@/components/PurchaseButtons"
-import PurchaseButtons from "@/components/PurchaseButtons"
-import PurchaseButtons from "@/components/PurchaseButtons"
-import PurchaseButtons from "@/components/PurchaseButtons"
 
 type Step = "login" | "register" | "quiz" | "subscription" | "home" | "admin"
 type HomeTab = "dashboard" | "wardrobe" | "analyze" | "combinations" | "trends" | "planner" | "shopping" | "search" | "chat" | "profile"
@@ -468,7 +462,7 @@ export default function FashionAI() {
     if (currentQuestionIndex < quizQuestions.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1)
     } else {
-      // Quiz finalizado
+      // Quiz finalizado - redirecionar para página de pagamento
       setCurrentStep("subscription")
     }
   }
@@ -487,8 +481,15 @@ export default function FashionAI() {
   const handleSubscription = (plan: string) => {
     // Salvar dados do usuário após "pagamento"
     saveCredentials(email, password, name)
-    alert(`Parabéns! Você escolheu o ${plan}. Seu acesso foi liberado!`)
-    setCurrentStep("home")
+    alert(`Parabéns! Você escolheu o ${plan}. Redirecionando para pagamento...`)
+    // Em produção, aqui seria redirecionado para a Kiwify
+    // window.open(linkDoPagamento, '_blank')
+    
+    // Para demonstração, simular sucesso após 2 segundos
+    setTimeout(() => {
+      alert("Pagamento processado com sucesso! Bem-vindo à área VIP!")
+      setCurrentStep("home")
+    }, 2000)
   }
 
   const resetForm = () => {
@@ -2382,7 +2383,7 @@ export default function FashionAI() {
               {currentQuestionIndex === quizQuestions.length - 1 ? (
                 <>
                   <Crown className="w-5 h-5 mr-2" />
-                  Liberar Meu Acesso
+                  Ver Resultado
                 </>
               ) : (
                 <>
