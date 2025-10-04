@@ -3,16 +3,16 @@
 import { Button } from "@/components/ui/button"
 import { CreditCard, Crown, ExternalLink } from "lucide-react"
 
-// 🔧 CONFIGURAÇÃO DOS BOTÕES DE COMPRA
-// ⚠️ EDITE APENAS OS LINKS ABAIXO PARA CONFIGURAR OS PAGAMENTOS
+// 🔧 CONFIGURAÇÃO DOS BOTÕES DE COMPRA - KIWIFY
+// ⚠️ COLE SEUS LINKS DE PAGAMENTO DA KIWIFY ABAIXO
 
 const PURCHASE_LINKS = {
-  weekly: "https://seu-link-de-pagamento-semanal.com",
-  monthly: "https://seu-link-de-pagamento-mensal.com", 
-  yearly: "https://seu-link-de-pagamento-anual.com"
+  weekly: "[COLE LINK DE PAGAMENTO SEMANAL]",
+  monthly: "[COLE LINK DE PAGAMENTO MENSAL]", 
+  yearly: "[COLE LINK DE PAGAMENTO ANUAL]"
 }
 
-// 📝 TEXTOS DOS BOTÕES (opcional personalizar)
+// 📝 TEXTOS DOS BOTÕES CONFORME ESPECIFICADO
 const BUTTON_TEXTS = {
   weekly: "Escolher Semanal",
   monthly: "Liberar meu acesso agora",
@@ -26,7 +26,13 @@ interface PurchaseButtonsProps {
 export default function PurchaseButtons({ onPurchase }: PurchaseButtonsProps) {
   
   const handlePurchase = (plan: string, link: string) => {
-    // Abrir link de pagamento em nova aba
+    // Verificar se o link foi configurado
+    if (link.includes("[COLE LINK")) {
+      alert("⚠️ Configure os links de pagamento da Kiwify no arquivo PurchaseButtons.tsx")
+      return
+    }
+    
+    // Abrir link de pagamento da Kiwify em nova aba
     window.open(link, '_blank')
     
     // Callback opcional para o componente pai
