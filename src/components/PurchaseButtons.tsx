@@ -7,9 +7,9 @@ import { CreditCard, Crown, ExternalLink } from "lucide-react"
 // ⚠️ COLE SEUS LINKS DE PAGAMENTO DA KIWIFY ABAIXO
 
 const PURCHASE_LINKS = {
-  weekly: "[COLE LINK DE PAGAMENTO SEMANAL]",
-  monthly: "[COLE LINK DE PAGAMENTO MENSAL]", 
-  yearly: "[COLE LINK DE PAGAMENTO ANUAL]"
+  weekly: "https://pay.kiwify.com.br/DR6Qjxo",
+  monthly: "https://pay.kiwify.com.br/LJmhQit", 
+  yearly: "https://pay.kiwify.com.br/qiVuHKX"
 }
 
 // 📝 TEXTOS DOS BOTÕES CONFORME ESPECIFICADO
