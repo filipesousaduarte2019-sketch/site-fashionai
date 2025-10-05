@@ -52,7 +52,7 @@ export default function PurchaseButtons({ onPurchase }: PurchaseButtonsProps) {
           </ul>
           <Button 
             onClick={() => handlePurchase("Plano Semanal", PURCHASE_LINKS.weekly)}
-            className="w-full bg-gray-600 hover:bg-gray-700 text-white py-3 font-medium"
+            className="w-full bg-gray-600 hover:bg-gray-700 text-white py-3 font-medium transition-all duration-300 hover:scale-105"
           >
             <CreditCard className="w-4 h-4 mr-2" />
             {BUTTON_TEXTS.weekly}
@@ -109,7 +109,7 @@ export default function PurchaseButtons({ onPurchase }: PurchaseButtonsProps) {
           </ul>
           <Button 
             onClick={() => handlePurchase("Plano Anual", PURCHASE_LINKS.yearly)}
-            className="w-full bg-gray-600 hover:bg-gray-700 text-white py-3 font-medium"
+            className="w-full bg-gray-600 hover:bg-gray-700 text-white py-3 font-medium transition-all duration-300 hover:scale-105"
           >
             <CreditCard className="w-4 h-4 mr-2" />
             {BUTTON_TEXTS.yearly}
