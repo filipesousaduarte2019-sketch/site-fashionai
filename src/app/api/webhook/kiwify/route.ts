@@ -11,12 +11,6 @@ interface KiwifyWebhookData {
   amount?: number;
 }
 
-// 🧩 Configuração do Supabase
-const supabase = createClient(
-  process.env.SUPABASE_URL!,
-  process.env.SUPABASE_KEY!
-);
-
 // 🔐 Token de validação da Kiwify
 const KIWIFY_TOKEN = "z7j0npvx5uw";
 
@@ -34,6 +28,21 @@ export async function POST(request: NextRequest) {
 
     const webhookData: KiwifyWebhookData = await request.json();
     console.log("📧 Webhook recebido:", webhookData);
+
+    // Verificar se as variáveis de ambiente existem
+    if (!process.env.SUPABASE_URL || !process.env.SUPABASE_KEY) {
+      console.error("❌ Variáveis de ambiente do Supabase não configuradas");
+      return NextResponse.json(
+        { success: false, message: "Configuração do banco não encontrada" },
+        { status: 500 }
+      );
+    }
+
+    // 🧩 Configuração do Supabase
+    const supabase = createClient(
+      process.env.SUPABASE_URL,
+      process.env.SUPABASE_KEY
+    );
 
     if (webhookData.status === "approved" && webhookData.email) {
       // 🧠 Salva o usuário no Supabase
