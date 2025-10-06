@@ -466,14 +466,42 @@ export default function FashionAI() {
         userProfile: { name, email }
       }
 
-      const aiResponse = await aiSystem.chatWithMaia(messageToProcess, context)
-      
-      const aiMessage = {
-        id: chatMessages.length + 2,
-        text: aiResponse.success ? aiResponse.message : aiResponse.message,
-        isUser: false,
-        timestamp: new Date(),
-        type: aiResponse.type || 'general'
+      try {
+  const res = await fetch("/api/openai", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      message: messageToProcess,
+      context: {
+        wardrobe,
+        userProfile: { name, email }
+      }
+    })
+  });
+
+  const data = await res.json();
+
+  const aiMessage = {
+    id: chatMessages.length + 2,
+    text: data.message || "Desculpe, algo deu errado.",
+    isUser: false,
+    timestamp: new Date()
+  };
+
+  setChatMessages(prev => [...prev, aiMessage]);
+} catch (error) {
+  console.error("Erro ao chamar a API OpenAI:", error);
+
+  const fallbackMessage = {
+    id: chatMessages.length + 2,
+    text: "Desculpe, tive um problema técnico momentâneo. Pode repetir sua pergunta?",
+    isUser: false,
+    timestamp: new Date()
+  };
+
+  setChatMessages(prev => [...prev, fallbackMessage]);
+} finally {
+  setIsTyping(false);
       }
 
       setChatMessages(prev => [...prev, aiMessage])
