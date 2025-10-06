@@ -555,36 +555,74 @@ export default function FashionAI() {
 
   // Função para analisar imagem com IA integrada
   const analyzeImageWithAI = async (imageData) => {
-    setIsAnalyzing(true)
-    setShowResult(false)
-    setAnalysisResult(null)
+  setIsAnalyzing(true)
+  setShowResult(false)
+  setAnalysisResult(null)
 
-    try {
-      // Usar o sistema de IA para análise de imagem
-      const analysis = await aiSystem.analyzeClothingImage(imageData)
-      
-      if (analysis.success) {
-        // Processar resposta da IA para formato estruturado
-        const mockResult = {
-          category: "Peça Analisada",
-          color: "Identificado pela IA",
-          style: "Analisado",
-          occasion: "Sugerido pela IA",
-          suggestions: [
-            "Análise completa realizada pela IA Maia",
-            "Sugestões personalizadas baseadas na imagem",
-            "Combinações inteligentes sugeridas"
-          ],
-          confidence: 95,
-          aiAnalysis: analysis.analysis
-        }
-        
-        setAnalysisResult(mockResult)
-      } else {
+  try {
+    const res = await fetch("/api/openai", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ imageBase64: imageData })
+    })
+
+    const data = await res.json()
+
+    const result = {
+      category: "Identificado pela IA",
+      color: "Identificado pela IA",
+      style: "Sugerido pela IA",
+      occasion: "Sugerido pela IA",
+      suggestions: data.message ? [data.message] : [],
+      confidence: 95,
+      aiAnalysis: data.message
+    }
+
+    setAnalysisResult(result)
+    setShowResult(true)
+  } catch (error) {
+    console.error("Erro ao analisar imagem:", error)
+    alert("Desculpe, não foi possível analisar a imagem no momento.")
+  } finally {
+    setIsAnalyzing(false)
+  }
+}
         // Fallback para análise simulada
         const mockResult = {
           category: ["Blusa", "Vestido", "Calça", "Saia", "Blazer"][Math.floor(Math.random() * 5)],
-          color: ["Azul", "Branco", "Preto", "Rosa", "Verde", "Vermelho"][Math.floor(Math.random() * 6)],
+          color: ["Azul", "Branco", "Preto", "Rosa", "Verde", "Vermelho"][Math.floor(Math.const analyzeImageWithAI = async (imageData) => {
+  setIsAnalyzing(true)
+  setShowResult(false)
+  setAnalysisResult(null)
+
+  try {
+    const res = await fetch("/api/openai", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ imageBase64: imageData })
+    })
+
+    const data = await res.json()
+
+    const result = {
+      category: "Identificado pela IA",
+      color: "Identificado pela IA",
+      style: "Sugerido pela IA",
+      occasion: "Sugerido pela IA",
+      suggestions: data.message ? [data.message] : [],
+      confidence: 95,
+      aiAnalysis: data.message
+    }
+
+    setAnalysisResult(result)
+    setShowResult(true)
+  } catch (error) {
+    console.error("Erro ao analisar imagem:", error)
+    alert("Desculpe, não foi possível analisar a imagem no momento.")
+  } finally {
+    setIsAnalyzing(false)
+  }
+          }random() * 6)],
           style: ["Casual", "Formal", "Elegante", "Moderno", "Clássico"][Math.floor(Math.random() * 5)],
           occasion: ["Trabalho", "Casual", "Festa", "Encontro", "Esporte"][Math.floor(Math.random() * 5)],
           suggestions: [
